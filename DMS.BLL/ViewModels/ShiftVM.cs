@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DMS.BLL.ViewModels
 {
-    public class DoctorVM
+    public class ShiftVM
     {
-        public int Id { get; set; } 
-        public string Name { get; set; }
-        public ShiftVM shift {  get; set; }
+        public int Id { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
     }
 }

@@ -10,7 +10,12 @@ namespace DMS.BLL.Interfaces
 {
     public interface IAppointmentService
     {
-        Task CreateAsync(AppointmentVM appointmentVM);
+        Task Create(AppointmentVM appointmentVM);
+        Task<IEnumerable<AppointmentVM>> GetAll();
+        Task<IEnumerable<AppointmentVM>> GetAllByDocId(int id);
+        Task<IEnumerable<AppointmentVM>> GetTodaysAppointmentsByDoctorId(int doctorId);
+
+
 
     }
 }

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AppointmentVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<p>
+    <a asp-action="Create" class="btn btn-primary mb-4">Create New Appointment </a>
+</p>
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Patient</th>
+                <th>Appointment Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Doctor</th>
+                <th>Edit</th>
+                <th>Details</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.PatientName</td>
+                    <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                    <td>@appointment.StartTime.ToString("HH:mm")</td>
+                    <td>@appointment.EndTime.ToString("HH:mm")</td>
+                    <td>@appointment.Status</td>
+                    <td>@appointment.DoctorName</td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-warning btn-sm">Edit</a>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@appointment.Id" class="btn btn-info btn-sm">Details</a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@appointment.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

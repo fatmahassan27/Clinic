@@ -19,6 +19,9 @@ namespace DMS.BLL.AutoMapper
            //------------------------------------------------
             CreateMap<Doctor, DoctorVM>();
             CreateMap<DoctorVM, Doctor>();
+            //-----------------------------------
+            CreateMap<Patient, PatientVM>();
+            CreateMap<PatientVM, Patient>();
         }
     }
 }

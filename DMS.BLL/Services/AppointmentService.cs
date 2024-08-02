@@ -21,11 +21,33 @@ namespace DMS.BLL.Services
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-        public async Task CreateAsync(AppointmentVM appointmentVM)
+        public async Task Create(AppointmentVM appointmentVM)
         {
             var data = mapper.Map<Appointment>(appointmentVM);
             await unitOfWork.AppointmentRepo.CreateAsync(data);
             await unitOfWork.saveAsync();
+        }
+
+        public  async Task<IEnumerable<AppointmentVM>> GetAll()
+        {
+            var data = await unitOfWork.AppointmentRepo.GetAll();
+            var appointments = mapper.Map<IEnumerable<AppointmentVM>>(data);
+            return appointments;
+        }
+
+        public async Task<IEnumerable<AppointmentVM>> GetAllByDocId(int id)
+        {
+            var data = await unitOfWork.AppointmentRepo.GetAllByDocId(id);
+            var appointments = mapper.Map<IEnumerable<AppointmentVM>>(data);
+            return appointments;
+        }
+
+        public async Task<IEnumerable<AppointmentVM>> GetTodaysAppointmentsByDoctorId(int doctorId)
+        {
+            var today = DateTime.Today;
+            var data = await unitOfWork.AppointmentRepo.GetAllByDocIdAndDateAsync(doctorId, today);
+            var appointments = mapper.Map<IEnumerable<AppointmentVM>>(data);
+            return appointments;
         }
     }
 }

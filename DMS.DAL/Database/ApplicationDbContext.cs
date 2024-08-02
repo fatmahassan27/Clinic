@@ -18,5 +18,7 @@ namespace DMS.DAL.Database
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Shift> shifts { get; set; }
+
     }
 }

@@ -4,32 +4,27 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
 <h4>Appointment</h4>
 <hr />
+<a class="btn btn-primary" title="NewPatient" asp-action="Create" asp-controller="Patient">
+    New Patient
+</a>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label asp-for="Doctor.Name" class="control-label">Doctor Name</label>
-                <select asp-for="Doctor.Name" class="form-control" asp-items="ViewBag.Doctors">
-                    <option value="">Select Doctor </option>
+                <label asp-for="PatientId" class="control-label">Patient Name</label>
+                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.Patients">
+                    <option value="">Select Patient Name </option>
                 </select>
-                <span asp-validation-for="Doctor.Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Patient.Name" class="control-label">Patient Name</label>
-                <select asp-for="Doctor.Name" class="form-control" asp-items="ViewBag.Patient">
-                    <option value="">Select Doctor </option>
-                </select>               
-                <span asp-validation-for="Patient.Name" class="text-danger"></span>
+                <span asp-validation-for="PatientId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class="form-control" type="date" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                <label asp-for="DoctorId" class="control-label">Doctor Name</label>
+                <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.Doctors">
+                    <option value="">Select Doctor Name</option>
+                </select>
+                <span asp-validation-for="DoctorId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AppointmentDate" class="control-label"></label>
@@ -38,9 +33,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartTime" class="control-label"></label>
-                <select asp-for="StartTime" class="form-control">
-                    <option value="">Select a time</option>
-                </select>
+                <input asp-for="StartTime" class="form-control" type="time" />
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -82,6 +75,17 @@
                         });
                         $('#StartTime').html(items);
                     });
+                }
+            });
+            $('#StartTime').change(function () {
+                var startTime = $(this).val();
+                if (startTime) {
+                    var endTime = new Date("1970-01-01T" + startTime + "Z");
+                    endTime.setMinutes(endTime.getMinutes() + 30);
+                    var formattedEndTime = endTime.toISOString().substring(11, 16);
+                    $('#EndTime').val(formattedEndTime);
+                } else {
+                    $('#EndTime').val('');
                 }
             });
         });

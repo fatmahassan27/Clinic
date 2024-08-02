@@ -14,7 +14,7 @@ namespace DMS.DAL.UnitOfWork
         private readonly ApplicationDbContext dbContext;
         private IAppointmentRepo appointmentRepo;
         private IDoctorRepo doctorRepo;
-
+        private IPatientRepo patientRepo;
         public UnitOfWork(ApplicationDbContext dbContext) 
         {
             this.dbContext = dbContext;
@@ -33,7 +33,13 @@ namespace DMS.DAL.UnitOfWork
                 return doctorRepo ??= new DoctorRepo(dbContext);
             }
         }
-
+        public IPatientRepo PatientRepo
+        {
+            get
+            {
+                return patientRepo ??= new PatientRepo(dbContext);
+            }
+        }
         public async Task<int> saveAsync()
         {
             return await dbContext.SaveChangesAsync();

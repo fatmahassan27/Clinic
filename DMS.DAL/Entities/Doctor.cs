@@ -13,6 +13,11 @@ namespace DMS.DAL.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [MaxLength(30)]
-        public string Name { get; set; }    
+        public string Name { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
+        public int? ShiftId { get; set; }
+        [ForeignKey("ShiftId")]
+        public Shift Shift { get; set; }
     }
 }

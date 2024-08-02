@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DMS.BLL.ViewModels.AppointmentVM>
+
+@{
+    ViewData["Title"] = "TodaysAppointments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>TodaysAppointments</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-hover table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Patient</th>
+            <th>Appointment Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.PatientName</td>
+                <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                <td>@appointment.StartTime.ToString("HH:mm")</td>
+                <td>@appointment.EndTime.ToString("HH:mm")</td>
+                <td>@appointment.Status</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-warning btn-sm">Edit</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@appointment.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

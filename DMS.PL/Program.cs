@@ -23,10 +23,12 @@ namespace DMS.PL
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAppointmentRepo, AppointmentRepo>();
             builder.Services.AddScoped<IDoctorRepo, DoctorRepo>();
+            builder.Services.AddScoped<IPatientRepo,PatientRepo>();
             // Register services
 
             builder.Services.AddScoped<IAppointmentService,AppointmentService>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
+            builder.Services.AddScoped<IPatientService,PatientService>();
 
             var app = builder.Build();
 

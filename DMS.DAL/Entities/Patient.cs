@@ -14,6 +14,7 @@ namespace DMS.DAL.Entities
         public int Id { get; set; }
         [Required,MaxLength(30)]
         public string Name { get; set; }
+        public long SSN { get; set; }   
         public DateTime BirthDate { get; set; }
         [Required]
         public string PhoneNumber { get; set; }

@@ -1,8 +1,61 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to the Clinic Management System</h1>
+    <p class="lead">Manage your appointments, patients, and doctors with ease.</p>
+    <hr class="my-4">
 </div>
+
+@{
+    var doctorId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+}
+
+<div class="text-center mb-5">
+    <a asp-controller="Appointment" asp-action="TodaysAppointments" asp-route-doctorId="@doctorId" class="btn btn-primary btn-lg mx-2">
+        View Today's Appointments
+    </a>
+    <a asp-controller="Patient" asp-action="Create" class="btn btn-success btn-lg mx-2">
+        Create New Patient
+    </a>
+    <a asp-controller="Appointment" asp-action="Create" class="btn btn-info btn-lg mx-2">
+        Create New Appointment
+    </a>
+    <a asp-controller="Doctor" asp-action="Create" class="btn btn-warning btn-lg mx-2">
+        Create New Doctor
+    </a>
+</div>
+
+@section Styles {
+    <style>
+        .jumbotron {
+            background-color: #f8f9fa;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: .3rem;
+        }
+
+        .btn-lg {
+            font-size: 1.25rem;
+            padding: .75rem 1.25rem;
+        }
+
+        .text-primary {
+            color: #007bff !important;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+        }
+
+        hr.my-4 {
+            border-top: 1px solid #e9ecef;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+}
