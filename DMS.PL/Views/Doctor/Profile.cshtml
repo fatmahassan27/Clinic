@@ -1,4 +1,6 @@
 ﻿@model DoctorVM
+@inject IShiftService ShiftService;
+
 
 @{
     ViewData["Title"] = "Doctor Profile";
@@ -21,7 +23,7 @@
                             <strong>Name:</strong>
                         </div>
                         <div class="col-sm-9">
-                            @Model?.Name ?? "N/A"
+                            @Model?.Name 
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -29,20 +31,27 @@
                             <strong>Email:</strong>
                         </div>
                         <div class="col-sm-9">
-                            @Model?.Email ?? "N/A"
+                            @Model?.Email 
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-sm-3">
-                            <strong>Shift:</strong>
+                            <strong>Shift Start From :</strong>
                         </div>
-                       @*  <div class="col-sm-9">
-                            @(Model?.ShiftId ?? "N/A")
-                        </div> *@
+                        <div class="col-sm-9">
+                          @Model.Shift??.StartTime 
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-3">
+                            <strong>Shift End At :</strong>
+                        </div>
+                        <div class="col-sm-9">
+                            @Model.Shift??.EndTime
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Edit Shift</a>
                     <a asp-action="TodaysAppointments" asp-route-id="@Model?.Id" class="btn btn-outline-secondary"> View Appointments </a>
 
 

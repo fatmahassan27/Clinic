@@ -12,6 +12,8 @@ namespace DMS.BLL.ViewModels
         public string Name { get; set; }
         public string Email { get; set; }
         public int?  ShiftId { get; set; }
-        public ShiftVM? shift {  get; set; }
+        public ShiftVM? Shift {  get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
 }

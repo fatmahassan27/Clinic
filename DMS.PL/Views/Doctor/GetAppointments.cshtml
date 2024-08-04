@@ -1,0 +1,32 @@
+﻿@model IEnumerable<AppointmentVM>
+
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<h1 class="text-center">Appointments for Doctor</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Patient Name</th>
+            <th>Appointment Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.PatientName</td>
+                <td>@appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
+                <td>@appointment.StartTime.ToString("hh:mm tt")</td>
+                <td>@appointment.EndTime.ToString("hh:mm tt")</td>
+                <td>@appointment.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="AppointmentsByDateRange" asp-route-id="Model.Id" class="btn btn-outline-secondary btn-sm">Profile</a>

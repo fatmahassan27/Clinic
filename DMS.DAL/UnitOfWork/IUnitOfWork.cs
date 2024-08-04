@@ -12,6 +12,7 @@ namespace DMS.DAL.UnitOfWork
         IAppointmentRepo AppointmentRepo { get; }
         IDoctorRepo DoctorRepo { get; }
         IPatientRepo PatientRepo { get; }
+        IShiftRepo ShiftRepo { get; }
         Task<int> saveAsync();
 
     }

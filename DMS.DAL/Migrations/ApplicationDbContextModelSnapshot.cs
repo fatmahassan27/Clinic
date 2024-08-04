@@ -55,7 +55,7 @@ namespace DMS.DAL.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("DMS.DAL.Entities.Doctor", b =>
@@ -82,7 +82,7 @@ namespace DMS.DAL.Migrations
 
                     b.HasIndex("ShiftId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("DMS.DAL.Entities.Patient", b =>
@@ -115,7 +115,7 @@ namespace DMS.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("DMS.DAL.Entities.Shift", b =>
@@ -134,7 +134,7 @@ namespace DMS.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("shifts");
+                    b.ToTable("shifts", (string)null);
                 });
 
             modelBuilder.Entity("DMS.DAL.Entities.Appointment", b =>

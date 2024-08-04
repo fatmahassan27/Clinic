@@ -22,6 +22,9 @@ namespace DMS.BLL.AutoMapper
             //-----------------------------------
             CreateMap<Patient, PatientVM>();
             CreateMap<PatientVM, Patient>();
+            //------------------------------------------
+            CreateMap<Shift, ShiftVM>();
+            CreateMap<ShiftVM, Shift>();
         }
     }
 }

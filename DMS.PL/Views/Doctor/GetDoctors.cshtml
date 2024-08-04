@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DoctorVM>
+@inject IShiftService ShiftService;
+ 
+@{
+    ViewData["Title"] = "Get Doctors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var allShifts = ShiftService.GetAll().Result; 
+
+}
+
+<h1 class="text-md-center">All Doctors in Clinic</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary ">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Doctor Name</th>
+            <th>Email</th>
+            <th>Start Shift</th>
+            <th>End Shift</th>
+            <th>Profile</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Shift?.StartTime.ToString("hh:mm")</td>
+                <td>@item.Shift?.EndTime.ToString("hh:mm")</td>
+             
+                <td>
+                    <a asp-action="Profile" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">Profile</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

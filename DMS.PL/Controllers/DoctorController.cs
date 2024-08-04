@@ -17,18 +17,25 @@ namespace DMS.PL.Controllers
             this.doctorService = doctorService;
             this.appointmentService = appointmentService;
         }
-       
 
-        [HttpGet]
-        public async Task<IActionResult> Profile(int doctorId)
+		[HttpGet]
+		public async Task<IActionResult> GetDoctors()
+		{
+			var doctors = await doctorService.GetAll();
+			return View(doctors);
+		}
+
+		[HttpGet]
+        public async Task<IActionResult> Profile(int id)
         {
             try
             {
-                var doctor = await doctorService.GetById(doctorId);
+                var doctor = await doctorService.GetById(id);
                 if (doctor == null)
                 {
                     return NotFound();
                 }
+
                 return View(doctor);
             }catch(Exception ex)
             {
@@ -51,7 +58,7 @@ namespace DMS.PL.Controllers
                 if(ModelState.IsValid)
                 {
                     await doctorService.Create(model);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(GetDoctors));
                 }
                 return View(model);
             }catch(Exception ex)
@@ -65,11 +72,11 @@ namespace DMS.PL.Controllers
 
 
 
-        public async Task<IActionResult> TodaysAppointments(int doctorId)
+        public async Task<IActionResult> TodaysAppointments(int id)
         {
             try
             {
-                var appointments = await appointmentService.GetTodaysAppointmentsByDoctorId(doctorId);
+                var appointments = await appointmentService.GetTodaysAppointmentsByDoctorId(id);
                 return View(appointments);
             }catch(Exception ex)
             {
@@ -89,10 +96,18 @@ namespace DMS.PL.Controllers
             }catch(Exception ex)
             {
                 ModelState.AddModelError("", "An error occurred while retrieving data");
-
+                return View("Error");
             }
-            return NotFound();
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAppointments(int id)
+        {
+            var appointments = await appointmentService.GetTodaysAppointmentsByDoctorId(id);
+            ViewBag.DoctorId = id;
+            return View(appointments);
+        }
+
     }
 }

@@ -1,0 +1,72 @@
+﻿
+@model IEnumerable<AppointmentVM>
+
+@{
+    ViewData["Title"] = "Appointments by Date Range";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        .appointments-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .appointments-table th, .appointments-table td {
+                padding: 8px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            .appointments-table th {
+                background-color: #f4f4f4;
+            }
+
+        .error-message {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Any())
+{
+    <table class="appointments-table">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Appointment Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.PatientName</td>
+                    <td>@appointment.AppointmentDate.ToShortDateString()</td>
+                    <td>@appointment.StartTime.ToShortTimeString()</td>
+                    <td>@appointment.EndTime.ToShortTimeString()</td>
+                    <td>@appointment.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No appointments found for the selected date range.</p>
+}
+
+@if (ViewData.ModelState.Values.Any(v => v.Errors.Count > 0))
+{
+    <div class="error-message">
+        @ViewData.ModelState.Values.First(v => v.Errors.Count > 0).Errors.First().ErrorMessage
+    </div>
+}
+

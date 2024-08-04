@@ -16,8 +16,8 @@
             <th>Start Time</th>
             <th>End Time</th>
             <th>Status</th>
-            <th>Edit</th>
-            <th>Delete</th>
+           
+   
         </tr>
     </thead>
     <tbody>
@@ -29,12 +29,7 @@
                 <td>@appointment.StartTime.ToString("HH:mm")</td>
                 <td>@appointment.EndTime.ToString("HH:mm")</td>
                 <td>@appointment.Status</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-warning btn-sm">Edit</a>
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@appointment.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
+               
             </tr>
         }
     </tbody>

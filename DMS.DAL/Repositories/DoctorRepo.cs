@@ -18,5 +18,25 @@ namespace DMS.DAL.Repositories
         {
             this.dbcontext = dbcontext;
         }
+
+        public async Task<IEnumerable<Doctor>> GetDoctorsWithShifts()
+        {
+            var doctors = await dbcontext.Doctors.Include(a => a.Shift).ToListAsync();
+            return doctors;
+        }
+        public async Task<Doctor> GetByIdWithShift(int id)
+        {
+            try
+            {
+                var doctor = await dbcontext.Doctors.Where(a => a.Id == id).Include(a => a.Shift).FirstOrDefaultAsync();
+                return doctor;
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                throw;
+            }
+            
+        }
     }
 }

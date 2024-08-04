@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DMS.DAL.Entities
 {
     public class Appointment
@@ -22,10 +23,11 @@ namespace DMS.DAL.Entities
         public int DoctorId { get; set; }
         [ForeignKey("DoctorId")]
         public Doctor Doctor { get; set; }
+        [CustomValidation.CustomDate]
         public DateTime AppointmentDate { get; set; }
 
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public string Status { get; set; } //confirm - cancelled
+        public string Status { get; set; } 
     }
 }

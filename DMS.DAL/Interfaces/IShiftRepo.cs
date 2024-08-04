@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace DMS.DAL.Interfaces
 {
-    public interface IDoctorRepo : IGenericRepo<Doctor>
+    public interface IShiftRepo :IGenericRepo<Shift>
     {
-        Task<IEnumerable<Doctor>> GetDoctorsWithShifts();
-        Task<Doctor> GetByIdWithShift(int id);
 
+        Task<Shift> GetShiftByDocId(int id);
+       
     }
 }

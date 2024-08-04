@@ -23,14 +23,14 @@ namespace DMS.BLL.Services
         }
         public async Task<IEnumerable<DoctorVM>> GetAll()
         {
-                var doctors =  await unitOfWork.DoctorRepo.GetAllAsync();
+                var doctors =  await unitOfWork.DoctorRepo.GetDoctorsWithShifts();
                 var doctorsVM = mapper.Map<IEnumerable<DoctorVM>>(doctors);
                 return doctorsVM;
         }
 
         public async Task<DoctorVM> GetById(int id)
         {
-            var doctor = await unitOfWork.DoctorRepo.GetByIdAsync(id);
+            var doctor = await unitOfWork.DoctorRepo.GetByIdWithShift(id);
             var doctorVM = mapper.Map<DoctorVM>(doctor);
             return doctorVM;
         }

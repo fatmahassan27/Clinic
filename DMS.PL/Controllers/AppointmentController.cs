@@ -107,5 +107,6 @@ namespace DMS.PL.Controllers
             await appointmentService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
+      
     }
 }

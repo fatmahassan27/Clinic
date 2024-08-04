@@ -15,6 +15,7 @@ namespace DMS.DAL.UnitOfWork
         private IAppointmentRepo appointmentRepo;
         private IDoctorRepo doctorRepo;
         private IPatientRepo patientRepo;
+        private IShiftRepo shiftRepo;
         public UnitOfWork(ApplicationDbContext dbContext) 
         {
             this.dbContext = dbContext;
@@ -43,6 +44,13 @@ namespace DMS.DAL.UnitOfWork
         public async Task<int> saveAsync()
         {
             return await dbContext.SaveChangesAsync();
+        }
+        public IShiftRepo ShiftRepo
+        {
+            get
+            {
+                return shiftRepo ??= new ShiftRepo(dbContext);
+            }
         }
     }
 }

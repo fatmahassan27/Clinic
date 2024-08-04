@@ -54,7 +54,7 @@ namespace DMS.DAL.Repositories
         }
         public async Task<IEnumerable<Appointment>> GetAllByDocIdAndDateAsync(int doctorId,DateTime date)
         {
-            return await dbContext.Appointments
+            return await dbContext.Appointments.Include(p=>p.Patient)
                 .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
                 .ToListAsync();
         }
