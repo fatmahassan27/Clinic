@@ -18,7 +18,6 @@
                 <th>Status</th>
                 <th>Doctor</th>
                 <th>Edit</th>
-                <th>Details</th>
                 <th>Delete</th>
             </tr>
         </thead>
@@ -36,9 +35,7 @@
                     <td>
                         <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-warning btn-sm">Edit</a>
                     </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@appointment.Id" class="btn btn-info btn-sm">Details</a>
-                    </td>
+                   
                     <td>
                         <a asp-action="Delete" asp-route-id="@appointment.Id" class="btn btn-danger btn-sm">Delete</a>
                     </td>

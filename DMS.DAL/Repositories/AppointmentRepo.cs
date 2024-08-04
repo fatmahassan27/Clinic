@@ -10,37 +10,31 @@ using System.Threading.Tasks;
 
 namespace DMS.DAL.Repositories
 {
-    public class AppointmentRepo : IAppointmentRepo
+    public class AppointmentRepo : GenericRepo<Appointment> , IAppointmentRepo
     {
         private readonly ApplicationDbContext dbContext;
 
-        public AppointmentRepo(ApplicationDbContext dbContext) 
+        public AppointmentRepo(ApplicationDbContext dbContext)  :base (dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task CreateAsync(Appointment appointment)
-        {
-            await dbContext.Appointments.AddAsync(appointment);
-        }
-
         public async Task<IEnumerable<Appointment>> GetAll()
         {
             try
             {
-                var appointments = await dbContext.Appointments.Include(a=>a.Doctor).Include(a=>a.Patient).ToListAsync();
-                if(appointments==null)
+                var appointments = await dbContext.Appointments.Include(a => a.Doctor).Include(p => p.Patient ).ToListAsync();
+                if (appointments == null)
                 {
                     await Console.Out.WriteLineAsync("No Data To Show");
                 }
-                 return appointments;
-            }catch(Exception ex)
+                return appointments;
+            }
+            catch (Exception ex)
             {
                 await Console.Out.WriteLineAsync(ex.Message);
                 throw;
             }
-           
         }
-
         public async Task<IEnumerable<Appointment>> GetAllByDocId(int id)
         {
             try
@@ -62,6 +56,14 @@ namespace DMS.DAL.Repositories
         {
             return await dbContext.Appointments
                 .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
+                .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByDateRange(int doctorId, DateTime startTime, DateTime endTime)
+        {
+            return await dbContext.Appointments
+                .Where(a => a.DoctorId == doctorId && a.StartTime >= startTime && a.EndTime <= endTime)
                 .ToListAsync();
         }
     }

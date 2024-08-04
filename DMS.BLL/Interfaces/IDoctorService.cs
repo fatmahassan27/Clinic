@@ -10,7 +10,11 @@ namespace DMS.BLL.Interfaces
 {
     public interface IDoctorService
     {
+        Task Create(DoctorVM doctor);
+
         Task<IEnumerable<DoctorVM>> GetAll();
+        Task<DoctorVM> GetById(int id);
+
 
     }
 }

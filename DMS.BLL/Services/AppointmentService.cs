@@ -35,6 +35,18 @@ namespace DMS.BLL.Services
             return appointments;
         }
 
+        public async Task<AppointmentVM> GetById(int id)
+        {
+            var data = await unitOfWork.AppointmentRepo.GetByIdAsync(id);
+            var appointment = mapper.Map<AppointmentVM>(data);
+            return appointment;
+        }
+        public async Task UpdateAsync(AppointmentVM appointmentVM)
+        {
+            var appointment = mapper.Map<Appointment>(appointmentVM);
+            await unitOfWork.AppointmentRepo.UpdateAsync(appointment);
+            await unitOfWork.saveAsync();
+        }
         public async Task<IEnumerable<AppointmentVM>> GetAllByDocId(int id)
         {
             var data = await unitOfWork.AppointmentRepo.GetAllByDocId(id);
@@ -49,5 +61,18 @@ namespace DMS.BLL.Services
             var appointments = mapper.Map<IEnumerable<AppointmentVM>>(data);
             return appointments;
         }
+        public async Task<IEnumerable<AppointmentVM>> GetAppointmentsByDateRange(int doctorId, DateTime dateFrom, DateTime dateTo)
+        {
+            var data = await unitOfWork.AppointmentRepo.GetAppointmentsByDateRange(doctorId, dateFrom, dateTo);
+            var appointments = mapper.Map<IEnumerable<AppointmentVM>>(data);
+            return appointments;
+        }
+        public async Task Delete(int id)
+        {
+            await unitOfWork.AppointmentRepo.DeleteAsync(id);
+            await unitOfWork.saveAsync();
+        }
+
+
     }
 }

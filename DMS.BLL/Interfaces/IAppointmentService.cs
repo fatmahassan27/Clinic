@@ -12,9 +12,14 @@ namespace DMS.BLL.Interfaces
     {
         Task Create(AppointmentVM appointmentVM);
         Task<IEnumerable<AppointmentVM>> GetAll();
+        Task<AppointmentVM> GetById(int id);
+        Task UpdateAsync(AppointmentVM appointmentVM);
+
         Task<IEnumerable<AppointmentVM>> GetAllByDocId(int id);
         Task<IEnumerable<AppointmentVM>> GetTodaysAppointmentsByDoctorId(int doctorId);
+        Task<IEnumerable<AppointmentVM>> GetAppointmentsByDateRange(int doctorId, DateTime startTime, DateTime endTime);
 
+        Task Delete(int id);
 
 
     }

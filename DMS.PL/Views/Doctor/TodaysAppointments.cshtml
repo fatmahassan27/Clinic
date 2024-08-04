@@ -1,15 +1,13 @@
-﻿@model IEnumerable<DMS.BLL.ViewModels.AppointmentVM>
+﻿@model IEnumerable<AppointmentVM>
 
 @{
     ViewData["Title"] = "TodaysAppointments";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>TodaysAppointments</h1>
+<h1 class="custom-heading">Today's Appointments</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table table-striped table-hover table-bordered">
     <thead class="thead-dark">
         <tr>

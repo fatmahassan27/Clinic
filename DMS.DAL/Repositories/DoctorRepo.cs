@@ -10,31 +10,13 @@ using System.Threading.Tasks;
 
 namespace DMS.DAL.Repositories
 {
-    public class DoctorRepo : IDoctorRepo
+    public class DoctorRepo : GenericRepo<Doctor> , IDoctorRepo
     {
         private readonly ApplicationDbContext dbcontext;
 
-        public DoctorRepo(ApplicationDbContext dbcontext) 
+        public DoctorRepo(ApplicationDbContext dbcontext) :base(dbcontext)
         {
             this.dbcontext = dbcontext;
-        }
-        public async Task<IEnumerable<Doctor>> GetAll()
-        {
-            try
-            {
-                var Doctors = await dbcontext.Doctors.ToListAsync();
-                if(Doctors==null)
-                {
-                    await Console.Out.WriteLineAsync("No Data To Show");
-
-                }
-                return Doctors;
-            }
-            catch(Exception ex)
-            {
-                await Console.Out.WriteLineAsync(ex.Message);
-                throw;
-            }
         }
     }
 }

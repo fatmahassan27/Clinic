@@ -1,4 +1,5 @@
 ﻿using DMS.BLL.Interfaces;
+using DMS.BLL.Services;
 using DMS.BLL.ViewModels;
 using DMS.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -66,25 +67,45 @@ namespace DMS.PL.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetDoctors()
-        {
-            var doctors = await doctorService.GetAll();
-            return Json(doctors);
-        }
+      
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var appointment = await appointmentService.GetById(id);
+            if (appointment == null)
+            {
+                return NotFound();
+
+            }
+            return View(appointment);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(AppointmentVM appointmentVM)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(appointmentVM);
+            }
+
+            await appointmentService.UpdateAsync(appointmentVM);
+            return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> Delete()
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            var appointment = await appointmentService.GetById(id);
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+            return View(appointment);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await appointmentService.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

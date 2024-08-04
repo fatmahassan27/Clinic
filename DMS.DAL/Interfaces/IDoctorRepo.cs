@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DMS.DAL.Interfaces
 {
-    public interface IDoctorRepo
+    public interface IDoctorRepo : IGenericRepo<Doctor>
     {
-        Task<IEnumerable<Doctor>> GetAll();
+
     }
 }

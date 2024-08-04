@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace DMS.DAL.Interfaces
 {
-    public interface IPatientRepo
+    public interface IPatientRepo : IGenericRepo<Patient>
     {
-        Task CreateAsync(Patient patient);
-        Task<IEnumerable<Patient>> GetAllAsync();
-        Task<Patient> GetByIdAsync(int id);
-        
-
+       
     }
 }
