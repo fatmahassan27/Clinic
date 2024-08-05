@@ -73,6 +73,11 @@ namespace DMS.BLL.Services
             await unitOfWork.saveAsync();
         }
 
-
+        public async Task<IEnumerable<SlotsVM>> GetAvailableSlots(int doctorId, DateTime date)
+        {
+           var data = await unitOfWork.AppointmentRepo.GetAvailableSlots(doctorId, date);
+            var slots = mapper.Map<IEnumerable<SlotsVM>>(data);
+            return slots;
+        }
     }
 }

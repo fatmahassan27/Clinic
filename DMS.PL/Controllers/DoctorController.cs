@@ -3,6 +3,7 @@ using DMS.BLL.Services;
 using DMS.BLL.ViewModels;
 using DMS.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Numerics;
 
 namespace DMS.PL.Controllers
@@ -11,19 +12,30 @@ namespace DMS.PL.Controllers
     {
         private readonly IDoctorService doctorService;
         private readonly IAppointmentService appointmentService;
+        private readonly IShiftService shiftService;
 
-        public DoctorController(IDoctorService doctorService,IAppointmentService appointmentService)
+        public DoctorController(IDoctorService doctorService,IAppointmentService appointmentService,IShiftService shiftService)
         {
             this.doctorService = doctorService;
             this.appointmentService = appointmentService;
+            this.shiftService = shiftService;
         }
 
 		[HttpGet]
 		public async Task<IActionResult> GetDoctors()
 		{
-			var doctors = await doctorService.GetAll();
-			return View(doctors);
-		}
+            try
+            {
+                var doctors = await doctorService.GetAll();
+                var shifts = await shiftService.GetAll();
+                return View(doctors);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "An error occurred while retrieving the list of doctors.");
+                return View("Error");
+            }
+        }
 
 		[HttpGet]
         public async Task<IActionResult> Profile(int id)
@@ -46,8 +58,10 @@ namespace DMS.PL.Controllers
 
         }
         [HttpGet]
-        public IActionResult Create()
+        public  async Task<IActionResult> Create()
         {
+            var shifts = await shiftService.GetAll();
+            ViewBag.Shifts = new SelectList(shifts, "Id", "StartTime" ,"EndTime");
             return View();
         }
         [HttpPost]
@@ -87,17 +101,31 @@ namespace DMS.PL.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> AppointmentsByDateRange(int doctorId,DateTime dateFrom, DateTime dateTo)
+        public IActionResult AppointmentsByDateRange()
+        {
+            var model = new AppointmentsByDateRangeVM();
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AppointmentsByDateRange(AppointmentsByDateRangeVM model)
         {
             try
             {
-                var appointments = await appointmentService.GetAppointmentsByDateRange(doctorId, dateFrom, dateTo);
-                return View(appointments);
+                if(ModelState.IsValid)
+                {
+                    
+                        model.Appointments = await appointmentService.GetAppointmentsByDateRange(model.DoctorId, model.DateFrom, model.DateTo);
+                        return View(model);
+                    
+                }
+                //var appointments = await appointmentService.GetAppointmentsByDateRange(doctorId, dateFrom, dateTo);
+                //return View(appointments);
             }catch(Exception ex)
             {
                 ModelState.AddModelError("", "An error occurred while retrieving data");
                 return View("Error");
             }
+            return View(model);
 
         }
 

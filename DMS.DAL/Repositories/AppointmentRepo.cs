@@ -66,5 +66,34 @@ namespace DMS.DAL.Repositories
                 .Where(a => a.DoctorId == doctorId && a.StartTime >= startTime && a.EndTime <= endTime)
                 .ToListAsync();
         }
+
+
+        public async Task<IEnumerable<Slot>> GetAvailableSlots(int doctorId, DateTime date)
+        {
+            var appointments = await dbContext.Appointments
+                .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
+                .ToListAsync();
+
+            var slots = GenerateSlots(); 
+            var occupiedSlots = appointments.Select(a => a.StartTime.ToString("HH:mm")).ToHashSet();
+            var availableSlots = slots.Where(slot => !occupiedSlots.Contains(slot.Value)).ToList();
+
+            return availableSlots;
+        }
+        private List<Slot> GenerateSlots()
+        {
+            var slots = new List<Slot>();
+            var startTime = new TimeSpan(9, 0, 0); 
+            var endTime = new TimeSpan(17, 0, 0); 
+            var slotDuration = TimeSpan.FromMinutes(30); 
+
+            for (var time = startTime; time < endTime; time += slotDuration)
+            {
+                var slotTime = time.ToString(@"hh\:mm");
+                slots.Add(new Slot { Value = slotTime, Text = slotTime });
+            }
+
+            return slots;
+        }
     }
 }

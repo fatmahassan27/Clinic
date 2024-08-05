@@ -137,11 +137,25 @@ namespace DMS.PL.Controllers
             }
         }
 
+
         private async Task PopulateViewData()
         {
             var doctors = await doctorService.GetAll();
             ViewBag.Doctors = new SelectList(doctors, "Id", "Name");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAvailableSlots(int doctorId, DateTime date)
+        {
+            try
+            {
+                var slots = await appointmentService.GetAvailableSlots(doctorId, date);
+                return Json(slots);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

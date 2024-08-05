@@ -15,5 +15,6 @@ namespace DMS.BLL.ViewModels
         public ShiftVM? Shift {  get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
+
     }
 }

@@ -18,6 +18,7 @@ namespace DMS.BLL.Interfaces
         Task<IEnumerable<AppointmentVM>> GetAllByDocId(int id);
         Task<IEnumerable<AppointmentVM>> GetTodaysAppointmentsByDoctorId(int doctorId);
         Task<IEnumerable<AppointmentVM>> GetAppointmentsByDateRange(int doctorId, DateTime startTime, DateTime endTime);
+        Task<IEnumerable<SlotsVM>> GetAvailableSlots(int doctorId, DateTime date);
 
         Task Delete(int id);
 

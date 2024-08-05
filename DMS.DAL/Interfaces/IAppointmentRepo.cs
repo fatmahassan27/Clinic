@@ -14,6 +14,7 @@ namespace DMS.DAL.Interfaces
         Task<IEnumerable<Appointment>> GetAllByDocId(int id);
         Task<IEnumerable<Appointment>> GetAllByDocIdAndDateAsync(int doctorId,DateTime date);
         Task<IEnumerable<Appointment>> GetAppointmentsByDateRange(int doctorId, DateTime startTime, DateTime endTime);
+        Task<IEnumerable<Slot>> GetAvailableSlots(int doctorId, DateTime date);
 
     }
 }

@@ -13,8 +13,7 @@ namespace DMS.BLL.ViewModels
     public class AppointmentVM
     {
         public int Id { get; set; }
-        [Required]
-        public int PatientId {  get; set; }
+       
         public string? DoctorName { get; set; }
         [Required]
         public int DoctorId { get; set; }
@@ -34,6 +33,7 @@ namespace DMS.BLL.ViewModels
         public string Status { get; set; } //confirm - cancelled
 
         // Patient details
+        public int PatientId { get; set; }
         public string? PatientName { get; set; }
         [BirthdayValidate]
         public DateTime? PatientBirthDate { get; set; }
