@@ -40,31 +40,95 @@ namespace DMS.PL.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(AppointmentVM appointment)
+        public async Task<IActionResult> Create(AppointmentVM model)
         {
             try
             {
-                if (ModelState.IsValid)
+                if(model.PatientId==null)
                 {
-                    bool patientExists = await patientService.Exists(appointment.PatientId);
-                    if (!patientExists)
-                    {
-                        ModelState.AddModelError("PatientId", "The selected patient does not exist.");
-                        return View(appointment);
-                    }
-                    await appointmentService.Create(appointment);
-                    return RedirectToAction(nameof(Index));
+                    //var patientVM = new PatientVM
+                    //{
+                    //    Name = model.PatientName,
+                    //    BirthDate = model.PatientBirthDate,
+                    //    Address = model.PatientAddress,
+                    //    PhoneNumber = model.PatientPhoneNumber,
+                    //    SSN = model.PatientSSN
+                    //};
+                    var existingPatientId = await patientService.GetPatientIdByNameAsync(model.PatientName);
 
+                    if (existingPatientId.HasValue)
+                    {
+                        model.PatientId = existingPatientId.Value;
+                    }
+                    else
+                    {
+                        var newPatient = new PatientVM
+                        {
+                            Name = model.PatientName,
+                            BirthDate = model.PatientBirthDate,
+                            Address = model.PatientAddress,
+                            PhoneNumber = model.PatientPhoneNumber,
+                            SSN = model.PatientSSN
+                        };
+                        await patientService.Create(newPatient);
+
+                        var createdPatientId = await patientService.GetPatientIdByNameAsync(model.PatientName);
+                        if (createdPatientId.HasValue)
+                        {
+                            model.PatientId = createdPatientId.Value;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Failed to retrieve the newly created patient ID.");
+                            return View(model);
+                        }
+                    }
+                    var appointment = new AppointmentVM
+                    {
+                        PatientId = model.PatientId,
+                        DoctorId = model.DoctorId,
+                        AppointmentDate = model.AppointmentDate,
+                        StartTime = model.StartTime,
+                        EndTime = model.EndTime,
+                        Status = model.Status
+                    };
+
+                    await appointmentService.Create(appointment);
+
+                    return RedirectToAction("Index");
                 }
+                //if (ModelState.IsValid)
+                //{
+                   
+
+                //    //if (appointment.PatientId == null)
+                //    //{
+                //    //    var patientVM = new PatientVM
+                //    //    {
+                //    //        Name = appointment.PatientName,
+                //    //        BirthDate = appointment.PatientBirthDate,
+                //    //        Address = appointment.PatientAddress,
+                //    //        PhoneNumber = appointment.PatientPhoneNumber,
+                //    //        SSN= appointment.PatientSSN
+                //    //    };
+                //    //    await patientService.Create(patientVM);
+                //    //    appointment.PatientId = patientVM.Id;
+
+                //    //}
+
+                //    //await appointmentService.Create(appointment);
+                //    //return RedirectToAction(nameof(Index));
+
+                //}
                 await PopulateViewData();
-                return View(appointment);
+                return View(model);
 
             }
             catch(Exception ex)
             {
                 ModelState.AddModelError("", "An error occurred while creating the user.");
                 await PopulateViewData();
-                return View(appointment);
+                return View(model);
 
             }
             

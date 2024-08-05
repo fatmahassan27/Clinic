@@ -18,6 +18,7 @@ namespace DMS.DAL.Repositories
         {
             this.dbContext = dbContext;
         }
+
         public async Task<IEnumerable<Appointment>> GetAll()
         {
             try
@@ -39,7 +40,7 @@ namespace DMS.DAL.Repositories
         {
             try
             {
-                var appointments = await dbContext.Appointments.Include(a=>a.Doctor).Where(a => a.DoctorId == id).ToListAsync();
+                var appointments = await dbContext.Appointments.Include(a=>a.Doctor).Include(p=>p.Patient).Where(a => a.DoctorId == id).ToListAsync();
                 if(appointments==null)
                 {
                     await Console.Out.WriteLineAsync("No Data To Show");
@@ -58,19 +59,15 @@ namespace DMS.DAL.Repositories
                 .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
                 .ToListAsync();
         }
-
-
         public async Task<IEnumerable<Appointment>> GetAppointmentsByDateRange(int doctorId, DateTime startTime, DateTime endTime)
         {
-            return await dbContext.Appointments
+            return await dbContext.Appointments.Include(a=>a.Patient)
                 .Where(a => a.DoctorId == doctorId && a.StartTime >= startTime && a.EndTime <= endTime)
                 .ToListAsync();
         }
-
-
         public async Task<IEnumerable<Slot>> GetAvailableSlots(int doctorId, DateTime date)
         {
-            var appointments = await dbContext.Appointments
+            var appointments = await dbContext.Appointments.Include(a=>a.Patient)
                 .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
                 .ToListAsync();
 

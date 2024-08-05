@@ -36,7 +36,8 @@ namespace DMS.BLL.ViewModels
         public int PatientId { get; set; }
         public string? PatientName { get; set; }
         [BirthdayValidate]
-        public DateTime? PatientBirthDate { get; set; }
+        public DateTime PatientBirthDate { get; set; }
+        public long? PatientSSN {  get; set; }
         public string? PatientAddress { get; set; }
         public string? PatientPhoneNumber { get; set; }
 

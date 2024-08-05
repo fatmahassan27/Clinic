@@ -48,5 +48,12 @@ namespace DMS.BLL.Services
             return await unitOfWork.PatientRepo.Exists(id);
         }
 
+        public async Task<int?> GetPatientIdByNameAsync(string name)
+        {
+            var data = await unitOfWork.PatientRepo.GetPatientIdByNameAsync(name);
+            var patient = mapper.Map<PatientVM>(data);
+            return patient.Id;
+
+        }
     }
 }

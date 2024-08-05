@@ -26,7 +26,6 @@ namespace DMS.DAL.Entities
         public Doctor Doctor { get; set; }
         [CustomDate] // CustomValidation
         public DateTime AppointmentDate { get; set; }
-
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Status { get; set; } 

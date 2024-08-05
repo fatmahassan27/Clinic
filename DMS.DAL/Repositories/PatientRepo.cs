@@ -24,5 +24,13 @@ namespace DMS.DAL.Repositories
             return await dbContext.Patients.AnyAsync(p => p.Id == id);
         }
 
+        public  async Task<int?> GetPatientIdByNameAsync(string name)
+        {
+            var patient = await dbContext.Patients
+            .Where(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+            .FirstOrDefaultAsync();
+
+            return patient?.Id;
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace DMS.DAL.Interfaces
     public interface IPatientRepo : IGenericRepo<Patient>
     {
         Task<bool> Exists(int id);
+        Task<int?> GetPatientIdByNameAsync(string name);
 
 
 

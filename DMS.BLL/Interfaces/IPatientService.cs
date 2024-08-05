@@ -15,6 +15,8 @@ namespace DMS.BLL.Interfaces
         Task<IEnumerable<PatientVM>> GetAll();
         Task<PatientVM> GetById(int id);
         Task<bool> Exists(int id);
+        Task<int?> GetPatientIdByNameAsync(string name);
+
 
 
     }
