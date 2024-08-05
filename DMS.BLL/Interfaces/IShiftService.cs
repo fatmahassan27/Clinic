@@ -11,5 +11,7 @@ namespace DMS.BLL.Interfaces
     {
         Task<IEnumerable<ShiftVM>> GetAll();
         Task<ShiftVM> GetShiftByDoctorId(int doctorId);
+        Task Create(ShiftVM shift);
+
     }
 }

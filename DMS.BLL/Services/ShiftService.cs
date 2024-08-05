@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DMS.BLL.Interfaces;
 using DMS.BLL.ViewModels;
+using DMS.DAL.Entities;
 using DMS.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace DMS.BLL.Services
             this.mapper = mapper;
         }
 
+
         public async Task<IEnumerable<ShiftVM>> GetAll()
         {
             var data = await unitOfWork.ShiftRepo.GetAllAsync();
@@ -31,6 +33,12 @@ namespace DMS.BLL.Services
         public Task<ShiftVM> GetShiftByDoctorId(int doctorId)
         {
             throw new NotImplementedException();
+        }
+        public async Task Create(ShiftVM shift)
+        {
+            var data = mapper.Map<Shift>(shift);
+            await unitOfWork.ShiftRepo.CreateAsync(data);
+            await unitOfWork.saveAsync();
         }
     }
 }

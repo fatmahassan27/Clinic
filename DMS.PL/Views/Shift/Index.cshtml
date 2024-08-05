@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ShiftVM>
+
+@{
+    ViewData["Title"] = "All Shifts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">All Shifts</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var shift in Model)
+                    {
+                        <tr>
+                            <td>@shift.StartTime.ToString("hh:mm tt")</td>
+                            <td>@shift.EndTime.ToString("hh:mm tt")</td>
+                          
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <a asp-action="Create" class="btn btn-outline-dark"> Create Shift</a>
+        </div>
+    </div>
+</div>
