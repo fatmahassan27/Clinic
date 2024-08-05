@@ -12,6 +12,9 @@
         <thead class="thead-dark">
             <tr>
                 <th>Patient</th>
+                <th>Patient BirthDate</th>
+                <th>Patient Address</th>
+                <th>Phone Number</th>
                 <th>Appointment Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
@@ -26,6 +29,9 @@
             {
                 <tr>
                     <td>@appointment.PatientName</td>
+                    <td>@appointment.PatientBirthDate</td>
+                    <td>@appointment.PatientAddress</td>
+                    <td>@appointment.PatientPhoneNumber</td>
                     <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
                     <td>@appointment.StartTime.ToString("HH:mm")</td>
                     <td>@appointment.EndTime.ToString("HH:mm")</td>

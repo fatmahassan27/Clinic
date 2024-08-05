@@ -1,6 +1,7 @@
 ﻿using DMS.DAL.Database;
 using DMS.DAL.Entities;
 using DMS.DAL.Interfaces;
+using DMS.DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,10 @@ namespace DMS.DAL.Repositories
         {
             this.dbContext = dbContext;
         }
-
+        public async Task<bool> Exists(int id)
+        {
+            return await dbContext.Patients.AnyAsync(p => p.Id == id);
+        }
 
     }
 }

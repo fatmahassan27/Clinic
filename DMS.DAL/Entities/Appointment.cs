@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DMS.DAL.CustomValidation;
 
 
 namespace DMS.DAL.Entities
@@ -23,7 +24,7 @@ namespace DMS.DAL.Entities
         public int DoctorId { get; set; }
         [ForeignKey("DoctorId")]
         public Doctor Doctor { get; set; }
-        [CustomValidation.CustomDate]
+        [CustomDate] // CustomValidation
         public DateTime AppointmentDate { get; set; }
 
         public DateTime StartTime { get; set; }

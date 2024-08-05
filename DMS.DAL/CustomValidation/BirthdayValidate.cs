@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DMS.DAL.CustomValidation
 {
-    public class CustomDate :ValidationAttribute
+    public class BirthdayValidate :ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -15,19 +15,15 @@ namespace DMS.DAL.CustomValidation
             {
                 return new ValidationResult("Date is required.");
             }
-
             if (DateTime.TryParse(value.ToString(), out DateTime dateTime))
             {
-                if (dateTime.Date < DateTime.Now.Date)
+                if (dateTime.Date > DateTime.Now.Date)
                 {
-                    return new ValidationResult("The date must be today or in the future.");
+                    return new ValidationResult("The date cannot be in the future.");
                 }
-
                 return ValidationResult.Success;
             }
             return new ValidationResult("Invalid date format.");
         }
-
-
     }
 }

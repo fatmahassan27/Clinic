@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DMS.DAL.CustomValidation;
+
 
 namespace DMS.BLL.ViewModels
 {
@@ -13,13 +15,13 @@ namespace DMS.BLL.ViewModels
         public int Id { get; set; }
         [Required]
         public int PatientId {  get; set; }
-        public string? PatientName { get; set; }
         public string? DoctorName { get; set; }
         [Required]
         public int DoctorId { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Appointment Date")]
+        [CustomDate]
         public DateTime AppointmentDate { get; set; }
         [Required]
         [DataType(DataType.Time)]
@@ -30,5 +32,14 @@ namespace DMS.BLL.ViewModels
         [Display(Name = "End Time")]
         public DateTime EndTime { get; set; }
         public string Status { get; set; } //confirm - cancelled
+
+        // Patient details
+        public string? PatientName { get; set; }
+        [BirthdayValidate]
+        public DateTime? PatientBirthDate { get; set; }
+        public string? PatientAddress { get; set; }
+        public string? PatientPhoneNumber { get; set; }
+
+
     }
 }

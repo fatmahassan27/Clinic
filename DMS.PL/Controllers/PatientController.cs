@@ -42,5 +42,17 @@ namespace DMS.PL.Controllers
             return View(model);
 
         }
+        [HttpGet]
+        public async Task<IActionResult> GetPatientNames(string term)
+        {
+            var patients = await patientService.GetAll();
+            var filteredPatients = patients
+                .Where(p => p.Name.Contains(term, StringComparison.OrdinalIgnoreCase))
+                .Select(p => new { p.Id, p.Name })
+                .ToList();
+
+            return Json(filteredPatients);
+        }
+
     }
 }

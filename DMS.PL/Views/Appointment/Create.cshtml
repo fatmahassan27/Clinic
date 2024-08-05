@@ -13,11 +13,25 @@
     <div class="col-md-4">
         <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label asp-for="PatientId" class="control-label">Patient Name</label>
-                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.Patients">
-                    <option value="">Select Patient Name </option>
-                </select>
-                <span asp-validation-for="PatientId" class="text-danger"></span>
+                <label asp-for="PatientName" class="control-label">Patient Name</label>
+                <input asp-for="PatientName" class="form-control" id="patientName" />
+                <input asp-for="PatientId" type="hidden" id="patientId" />
+                <span asp-validation-for="PatientName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientBirthDate" class="control-label">Patient Birth Date</label>
+                <input asp-for="PatientBirthDate" class="form-control" type="date" />
+                <span asp-validation-for="PatientBirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientAddress" class="control-label">Patient Address</label>
+                <input asp-for="PatientAddress" class="form-control" />
+                <span asp-validation-for="PatientAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientPhoneNumber" class="control-label">Patient Phone Number</label>
+                <input asp-for="PatientPhoneNumber" class="form-control" />
+                <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DoctorId" class="control-label">Doctor Name</label>
@@ -27,7 +41,7 @@
                 <span asp-validation-for="DoctorId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AppointmentDate" class="control-label"></label>
+                <label asp-for="AppointmentDate" class="control-label">Appointment Date</label>
                 <input asp-for="AppointmentDate" class="form-control" type="date"/>
                 <span asp-validation-for="AppointmentDate" class="text-danger"></span>
             </div>
@@ -47,7 +61,7 @@
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-outline-primary" />
             </div>
         </form>
     </div>
@@ -87,6 +101,14 @@
                 } else {
                     $('#EndTime').val('');
                 }
+            });
+
+            $('#patientName').on('change', function () {
+                var selectedPatientName = $(this).val();
+
+                $.getJSON('@Url.Action("GetPatientIdByName", "Patient")', { name: selectedPatientName }, function (data) {
+                    $('#patientId').val(data.patientId);
+                });
             });
         });
     </script>

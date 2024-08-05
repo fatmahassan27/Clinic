@@ -3,6 +3,7 @@ using DMS.BLL.Interfaces;
 using DMS.BLL.ViewModels;
 using DMS.DAL.Entities;
 using DMS.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,5 +43,10 @@ namespace DMS.BLL.Services
             var patient = mapper.Map<PatientVM>(data);
             return patient;
         }
+        public async Task<bool> Exists(int id)
+        {
+            return await unitOfWork.PatientRepo.Exists(id);
+        }
+
     }
 }
