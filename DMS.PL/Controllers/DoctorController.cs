@@ -61,7 +61,7 @@ namespace DMS.PL.Controllers
         public  async Task<IActionResult> Create()
         {
             var shifts = await shiftService.GetAll();
-            ViewBag.Shifts = new SelectList(shifts, "Id", "StartTime" ,"EndTime");
+            ViewBag.Shifts = new SelectList(shifts, "Id" ,"DisplayShift" );
             return View();
         }
         [HttpPost]
@@ -74,6 +74,9 @@ namespace DMS.PL.Controllers
                     await doctorService.Create(model);
                     return RedirectToAction(nameof(GetDoctors));
                 }
+                var shifts = await shiftService.GetAll();
+                ViewBag.Shifts = new SelectList(shifts, "Id" ,"DisplayShift");
+
                 return View(model);
             }catch(Exception ex)
             {

@@ -28,3 +28,38 @@ body {
     text-align: center;
     padding: 10px; 
 }
+.success-message {
+    padding: 15px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+    text-align: center;
+}
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .nav-link {
+    margin-right: 15px;
+    font-size: 1.1rem;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #007bff;
+    }
+
+.navbar-toggler {
+    border-color: #007bff;
+}
+
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path stroke="#007bff" stroke-width="2" d="M5 7h20M5 15h20M5 23h20"/></svg>');
+}

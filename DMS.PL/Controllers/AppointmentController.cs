@@ -46,14 +46,7 @@ namespace DMS.PL.Controllers
             {
                 if(model.PatientId==null)
                 {
-                    //var patientVM = new PatientVM
-                    //{
-                    //    Name = model.PatientName,
-                    //    BirthDate = model.PatientBirthDate,
-                    //    Address = model.PatientAddress,
-                    //    PhoneNumber = model.PatientPhoneNumber,
-                    //    SSN = model.PatientSSN
-                    //};
+                   
                     var existingPatientId = await patientService.GetPatientIdByNameAsync(model.PatientName);
 
                     if (existingPatientId.HasValue)
@@ -72,6 +65,8 @@ namespace DMS.PL.Controllers
                         };
                         await patientService.Create(newPatient);
 
+                        // Retrieve the newly created patient ID
+
                         var createdPatientId = await patientService.GetPatientIdByNameAsync(model.PatientName);
                         if (createdPatientId.HasValue)
                         {
@@ -83,43 +78,12 @@ namespace DMS.PL.Controllers
                             return View(model);
                         }
                     }
-                    var appointment = new AppointmentVM
-                    {
-                        PatientId = model.PatientId,
-                        DoctorId = model.DoctorId,
-                        AppointmentDate = model.AppointmentDate,
-                        StartTime = model.StartTime,
-                        EndTime = model.EndTime,
-                        Status = model.Status
-                    };
-
-                    await appointmentService.Create(appointment);
+                    
+                    await appointmentService.Create(model);
 
                     return RedirectToAction("Index");
                 }
-                //if (ModelState.IsValid)
-                //{
-                   
-
-                //    //if (appointment.PatientId == null)
-                //    //{
-                //    //    var patientVM = new PatientVM
-                //    //    {
-                //    //        Name = appointment.PatientName,
-                //    //        BirthDate = appointment.PatientBirthDate,
-                //    //        Address = appointment.PatientAddress,
-                //    //        PhoneNumber = appointment.PatientPhoneNumber,
-                //    //        SSN= appointment.PatientSSN
-                //    //    };
-                //    //    await patientService.Create(patientVM);
-                //    //    appointment.PatientId = patientVM.Id;
-
-                //    //}
-
-                //    //await appointmentService.Create(appointment);
-                //    //return RedirectToAction(nameof(Index));
-
-                //}
+             
                 await PopulateViewData();
                 return View(model);
 

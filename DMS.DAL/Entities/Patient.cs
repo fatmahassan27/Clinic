@@ -21,7 +21,7 @@ namespace DMS.DAL.Entities
         public DateTime BirthDate { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
-        [MaxLength(50)]
+        [Required,MaxLength(50)]
         public string Address { get; set; }
     }
 }

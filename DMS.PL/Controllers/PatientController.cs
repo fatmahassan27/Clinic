@@ -1,6 +1,7 @@
 ﻿using DMS.BLL.Interfaces;
 using DMS.BLL.Services;
 using DMS.BLL.ViewModels;
+using DMS.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DMS.PL.Controllers
@@ -52,6 +53,26 @@ namespace DMS.PL.Controllers
                 .ToList();
 
             return Json(filteredPatients);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetPatientIdByName(string name)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(name))
+                {
+                    return Json(new { patientId = (int?)null });
+                }
+                var patientId = await patientService.GetPatientIdByNameAsync(name);
+                return Json(new { patientId });
+
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(500, new { error = "An error occurred while retrieving the patient ID." });
+
+            }
         }
 
     }

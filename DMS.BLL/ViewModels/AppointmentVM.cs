@@ -30,7 +30,7 @@ namespace DMS.BLL.ViewModels
         [DataType(DataType.Time)]
         [Display(Name = "End Time")]
         public DateTime EndTime { get; set; }
-        public string Status { get; set; } //confirm - cancelled
+        public string? Status { get; set; } //confirm - cancelled
 
         // Patient details
         public int PatientId { get; set; }

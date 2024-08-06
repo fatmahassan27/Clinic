@@ -4,8 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
+
+<div class="container mt-5">
     <div class="success-message">
         Patient was created successfully!
+    </div>
+
+    <div class="text-center">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary ">Home</a>
+        <a asp-action="Create" class="btn btn-success btn-outline-danger">Create New Patient</a>
+        <a  asp-controller="Appointment" asp-action="Create" class="btn btn-outline-info">Create Appointment</a>
     </div>
 </div>

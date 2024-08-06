@@ -27,12 +27,15 @@ namespace DMS.BLL.Services
         {
             var data = await unitOfWork.ShiftRepo.GetAllAsync();
             var shifts = mapper.Map<IEnumerable<ShiftVM>>(data);
+       
             return shifts;
         }
 
-        public Task<ShiftVM> GetShiftByDoctorId(int doctorId)
+        public async Task<ShiftVM> GetShiftByDoctorId(int doctorId)
         {
-            throw new NotImplementedException();
+            var data = await unitOfWork.ShiftRepo.GetShiftByDocId(doctorId);
+            var shift = mapper.Map<ShiftVM>(data);
+            return shift;
         }
         public async Task Create(ShiftVM shift)
         {

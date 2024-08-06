@@ -11,7 +11,7 @@
 </a>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <form asp-action="Create" method="post" >
             <div class="form-group">
                 <label asp-for="PatientName" class="control-label">Patient Name</label>
                 <input asp-for="PatientName" class="form-control" id="patientName" />
@@ -19,7 +19,7 @@
                 <span asp-validation-for="PatientName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PatientBirthDate" class="control-label">Patient Birth Date</label>
+                <label asp-for="PatientBirthDate" class="control-label">Patient BirthDay</label>
                 <input asp-for="PatientBirthDate" class="form-control" type="date" />
                 <span asp-validation-for="PatientBirthDate" class="text-danger"></span>
             </div>
@@ -73,7 +73,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" >Back to List</a>
 </div>
 
 @section Scripts {
@@ -111,9 +111,13 @@
             $('#patientName').on('change', function () {
                 var selectedPatientName = $(this).val();
 
-                $.getJSON('@Url.Action("GetPatientIdByName", "Patient")', { name: selectedPatientName }, function (data) {
-                    $('#patientId').val(data.patientId);
-                });
+                $.getJSON('@Url.Action("GetPatientIdByName", "Patient")', { name: selectedPatientName })
+            .done(function (data) {
+                $('#patientId').val(data.patientId);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                alert('Error: ' + errorThrown);
+            });
             });
         });
     </script>

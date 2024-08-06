@@ -11,11 +11,14 @@ namespace DMS.BLL.ViewModels
     public class PatientVM
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public long? SSN { get; set; }
         [BirthdayValidate] // Custom Validation
         public DateTime BirthDate { get; set; }
+        [Required]
         public string PhoneNumber { get; set; }
+        [Required]
         public string Address { get; set; }
     }
 }
