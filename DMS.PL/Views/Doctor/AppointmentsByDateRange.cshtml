@@ -1,4 +1,4 @@
-﻿@model AppointmentsByDateRangeVM
+﻿@model AppointmentVM
 
 @{
     ViewData["Title"] = "Appointments By Date Range";
@@ -14,21 +14,21 @@
         <span asp-validation-for="DoctorId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="DateFrom" class="control-label">From</label>
-        <input asp-for="DateFrom" class="form-control" type="date" />
-        <span asp-validation-for="DateFrom" class="text-danger"></span>
+        <label asp-for="AppointmentDate" class="control-label">From</label>
+        <input asp-for="AppointmentDate" class="form-control" type="date" />
+        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="DateTo" class="control-label">To</label>
-        <input asp-for="DateTo" class="form-control" type="date" />
-        <span asp-validation-for="DateTo" class="text-danger"></span>
-    </div>
+   @*  <div class="form-group">
+        <label asp-for="AppointmentDate" class="control-label">To</label>
+        <input asp-for="AppointmentDate" class="form-control" type="date" />
+        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+    </div> *@
     <div class="form-group">
         <input type="submit" value="Filter" class="btn btn-outline-primary" />
     </div>
 </form>
 
-@if (Model.Appointments != null && Model.Appointments.Any())
+@if (Model.AppointmentDate != null )
 {
     <h3>Appointments</h3>
     <table class="table">
@@ -42,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var appointment in Model.Appointments)
+            @foreach (var appointment in Model)
             {
                 <tr>
                     <td>@appointment.PatientName</td>
