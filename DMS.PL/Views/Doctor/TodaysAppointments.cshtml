@@ -33,7 +33,7 @@
             </tr>
         }
     </tbody>
-    <a asp-controller="Doctor" asp-action="AppointmentsByDateRange" asp-route-id="model.Id" class="btn btn-outline-warning btn-lg mx-2">
-        Get By DateTime
+    <a asp-controller="Doctor" asp-action="AppointmentsByDateRange" asp-route-id="@ViewBag.DoctorId" class="btn btn-outline-warning ">
+        Filter By Time
     </a>
 </table>

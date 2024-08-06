@@ -93,6 +93,8 @@ namespace DMS.PL.Controllers
         {
             try
             {
+                ViewBag.DoctorId = id;
+                TempData["DoctorId"] = id;
                 var appointments = await appointmentService.GetTodaysAppointmentsByDoctorId(id);
                 return View(appointments);
             }catch(Exception ex)
@@ -116,13 +118,15 @@ namespace DMS.PL.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    
+                    if (TempData["DoctorId"] !=null)
+                    {
+                        model.DoctorId = (int)TempData["DoctorId"];
+                    }
                         model.Appointments = await appointmentService.GetAppointmentsByDateRange(model.DoctorId, model.DateFrom, model.DateTo);
                         return View(model);
                     
                 }
-                //var appointments = await appointmentService.GetAppointmentsByDateRange(doctorId, dateFrom, dateTo);
-                //return View(appointments);
+               
             }catch(Exception ex)
             {
                 ModelState.AddModelError("", "An error occurred while retrieving data");
