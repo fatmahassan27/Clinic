@@ -62,7 +62,7 @@ namespace DMS.DAL.Repositories
         public async Task<IEnumerable<Appointment>> GetAppointmentsByDateRange(int doctorId, DateTime startDate, DateTime endDate)
         {
             return await dbContext.Appointments.Include(a=>a.Patient)
-                .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date >= startDate.Date && a.EndTime.Date <= startDate.Date)
+                .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date >= startDate.Date && a.AppointmentDate.Date <= endDate.Date)
                 .ToListAsync();
         }
         public async Task<IEnumerable<Slot>> GetAvailableSlots(int doctorId, DateTime date)
