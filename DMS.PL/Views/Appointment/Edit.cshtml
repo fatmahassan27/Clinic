@@ -5,43 +5,61 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Edit Appointment</h1>
 
-<h4>AppointmentVM</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+        <form asp-action="Edit" method="post">
+            <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PatientId" class="control-label"></label>
-                <input asp-for="PatientId" class="form-control" />
-                <span asp-validation-for="PatientId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PatientName" class="control-label"></label>
-                <input asp-for="PatientName" class="form-control" />
+                <label asp-for="PatientName" class="control-label">Patient Name</label>
+                <input asp-for="PatientName" class="form-control" id="patientName" />
+                <input asp-for="PatientId" type="hidden" id="patientId" />
                 <span asp-validation-for="PatientName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DoctorName" class="control-label"></label>
-                <input asp-for="DoctorName" class="form-control" />
-                <span asp-validation-for="DoctorName" class="text-danger"></span>
+                <label asp-for="PatientBirthDate" class="control-label">Patient BirthDay</label>
+                <input asp-for="PatientBirthDate" class="form-control" type="date" />
+                <span asp-validation-for="PatientBirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DoctorId" class="control-label"></label>
-                <input asp-for="DoctorId" class="form-control" />
-                <span asp-validation-for="DoctorId" class="text-danger"></span>
+                <label asp-for="PatientAddress" class="control-label">Patient Address</label>
+                <input asp-for="PatientAddress" class="form-control" />
+                <span asp-validation-for="PatientAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientPhoneNumber" class="control-label"></label>
+                <input asp-for="PatientPhoneNumber" class="form-control" />
+                <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AppointmentDate" class="control-label"></label>
                 <input asp-for="AppointmentDate" class="form-control" />
                 <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="PatientName" class="control-label"></label>
+                <input asp-for="PatientName" class="form-control" />
+                <span asp-validation-for="PatientName" class="text-danger"></span>
+            </div> *@
+           @*  <div class="form-group">
+                <label asp-for="PatientId" class="control-label">Patient Name</label>
+                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.Patients">
+                    <option value="">Select Patient Name</option>
+                </select>
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="DoctorId" class="control-label">Doctor Name</label>
+                <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.Doctors">
+                    <option value="">Select Doctor Name</option>
+                </select>
+                <span asp-validation-for="DoctorId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StartTime" class="control-label"></label>
@@ -66,6 +84,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn- btn-outline-success">Back to List</a>
 </div>
 

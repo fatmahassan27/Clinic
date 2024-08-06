@@ -27,15 +27,12 @@
             <tr>
                 <td>@appointment.PatientName</td>
                 <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
-                <td>@appointment.StartTime.ToString("HH:mm tt")</td>
-                <td>@appointment.EndTime.ToString("HH:mm tt")</td>
+                <td>@appointment.StartTime.ToString("HH:mm ")</td>
+                <td>@appointment.EndTime.ToString("HH:mm ")</td>
                 <td>@appointment.Status</td>
-               
             </tr>
         }
-
     </tbody>
-
     <a asp-controller="Doctor" asp-action="AppointmentsByDateRange" asp-route-id="model.Id" class="btn btn-outline-warning btn-lg mx-2">
         Get By DateTime
     </a>

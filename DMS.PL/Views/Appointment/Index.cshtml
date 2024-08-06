@@ -4,6 +4,8 @@
     ViewData["Title"] = "Index";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+<h1 class="custom-heading">All Appointments</h1>
+
 <p>
     <a asp-action="Create" class="btn btn-primary mb-4">Create New Appointment </a>
 </p>
@@ -29,7 +31,7 @@
             {
                 <tr>
                     <td>@appointment.PatientName</td>
-                    <td>@appointment.PatientBirthDate</td>
+                    <td>@appointment.PatientBirthDate.ToString("yyyy-MM-dd")</td>
                     <td>@appointment.PatientAddress</td>
                     <td>@appointment.PatientPhoneNumber</td>
                     <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
@@ -39,7 +41,7 @@
                     <td>@appointment.DoctorName</td>
 
                     <td>
-                        <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@appointment.Id" class="btn btn-outline-success btn-sm">Edit</a>
                     </td>
                    
                     <td>

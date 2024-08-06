@@ -26,7 +26,8 @@
                 <td>@appointment.EndTime.ToString("hh:mm tt")</td>
                 <td>@appointment.Status</td>
             </tr>
+            <a asp-action="AppointmentsByDateRange" asp-route-id="Model.Id" class="btn btn-outline-secondary btn-sm">Profile</a>
+
         }
     </tbody>
 </table>
-<a asp-action="AppointmentsByDateRange" asp-route-id="Model.Id" class="btn btn-outline-secondary btn-sm">Profile</a>

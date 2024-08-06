@@ -1,4 +1,4 @@
-﻿@model DMS.BLL.ViewModels.AppointmentsByDateRangeVM
+﻿@model AppointmentsByDateRangeVM
 
 @{
     ViewData["Title"] = "Appointments By Date Range";
@@ -8,7 +8,7 @@
 <h2>View Appointments By Date Range</h2>
 
 <form asp-action="AppointmentsByDateRange" method="post">
-    <div class="form-group">
+    <div class="form-group" hidden>
         <label asp-for="DoctorId" class="control-label">Doctor</label>
         <input asp-for="DoctorId" class="form-control" />
         <span asp-validation-for="DoctorId" class="text-danger"></span>

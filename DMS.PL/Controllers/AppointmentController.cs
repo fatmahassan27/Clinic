@@ -44,9 +44,10 @@ namespace DMS.PL.Controllers
         {
             try
             {
-                if(model.PatientId==null)
+
+                if (model.PatientId == 0)
                 {
-                   
+
                     var existingPatientId = await patientService.GetPatientIdByNameAsync(model.PatientName);
 
                     if (existingPatientId.HasValue)
@@ -78,12 +79,12 @@ namespace DMS.PL.Controllers
                             return View(model);
                         }
                     }
-                    
+
                     await appointmentService.Create(model);
 
                     return RedirectToAction("Index");
                 }
-             
+
                 await PopulateViewData();
                 return View(model);
 
@@ -126,6 +127,8 @@ namespace DMS.PL.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    await PopulateViewData();
+
                     await appointmentService.UpdateAsync(appointmentVM);
                     return RedirectToAction(nameof(Index));
                 }
@@ -155,6 +158,7 @@ namespace DMS.PL.Controllers
         {
             try
             {
+
                 await appointmentService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
@@ -170,6 +174,8 @@ namespace DMS.PL.Controllers
         {
             var doctors = await doctorService.GetAll();
             ViewBag.Doctors = new SelectList(doctors, "Id", "Name");
+            var patients = await patientService.GetAll();
+            ViewBag.Patients = new SelectList(patients, "Id", "Name");
         }
 
         [HttpGet]
